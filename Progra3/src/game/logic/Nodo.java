@@ -1,5 +1,6 @@
 package game.logic;
 
+import game.logic.escudos.IEscudo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +14,7 @@ public class Nodo {
     private boolean turno;
     public int totalPeso;
     public boolean visitado = false;
+    private List<IEscudo> escudos;
     public List<Arista> aritas;
     private List<Nodo> hijos;
 
@@ -23,6 +25,7 @@ public class Nodo {
         aritas = new ArrayList<>();
         hijos = new ArrayList<>();
         totalPeso = 0;
+        escudos = new ArrayList<>();
     }
 
     public boolean containsA(Nodo nodo){
@@ -40,16 +43,17 @@ public class Nodo {
 
     public void agregarArista(Arista a){
         aritas.add(a);
+        totalPeso += a.getPeso();
     }
 
     public void borrarArista(String destino){
         for(Arista a : aritas){
             if(Objects.equals(a.getDestino().getId(), destino)){
                 aritas.remove(a);
+                totalPeso -= a.getPeso();
             }
         }
     }
-
 
     public void imprimir(){
         for(Arista a: aritas){

@@ -12,6 +12,7 @@ public class Grafo {
     List<Nodo> vertices;
     List<Nodo> pila;
     List<String> usernames;
+    Nodo jugador;
 
     public Grafo(){
         vertices = new ArrayList<>();
@@ -45,7 +46,7 @@ public class Grafo {
         matrices.agregarArista(or,dest,peso);
     }
 
-    private  Nodo buscarNodo(String id){
+    public Nodo buscarNodo(String id){
         for(Nodo i : vertices){
             if(Objects.equals(i.getId(), id)){
                 return i;
@@ -98,6 +99,23 @@ public class Grafo {
     public void imprimir(){
         matrices.imprimir();
     }
+
+    public ArrayList<Nodo> profundidad(Nodo origen, String destino){
+        ArrayList<String> lista = matrices.profundidad(vertices.indexOf(origen),destino,new ArrayList<>());
+        ArrayList<Nodo> result = new ArrayList<>();
+        for(String e : lista){
+            result.add(buscarNodo(e));
+        }
+        return result.get(vertices.size() - 1) == buscarNodo(destino) ? result: null;
+    }
+
+
+    public void dijkstra(String nodo){
+        matrices.imprimeDijkstra(usernames.indexOf(nodo));
+    }
+
+
+
 
 
 }

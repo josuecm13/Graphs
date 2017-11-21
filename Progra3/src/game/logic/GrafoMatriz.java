@@ -1,6 +1,7 @@
 package game.logic;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -18,7 +19,6 @@ public class GrafoMatriz {
     public GrafoMatriz() {
         max = 100;
         cantidadVertices = 0;
-        // inicializa arreglos
         for (int i=0; i<100; i++)
         {
             vertices[i] = "";
@@ -31,7 +31,17 @@ public class GrafoMatriz {
                 matrizAdyacencia[i][j] = 0;
             }
         }
+    }
 
+    boolean esConexo(){
+        int[][] array = warshall_floyd();
+        for (int i = 0; i < cantidadVertices; i++)
+            for(int j = 0; j < cantidadVertices; j++){
+                if(array[i][j] == 9999){
+                    return false;
+                }
+            }
+        return true;
     }
     
 
@@ -49,7 +59,7 @@ public class GrafoMatriz {
     public int indexOfVertice(String v)
     {
         for (int i = 0; i < cantidadVertices; i++) {
-            if (vertices[i] == v)
+            if (Objects.equals(vertices[i], v))
                 return i;
         }
 
@@ -59,13 +69,11 @@ public class GrafoMatriz {
     // agregar arista
     public void agregarArista(String origen, String destino, int valor)
     {
-        int peso = valor;
         int orig = indexOfVertice(origen);
         int dest = indexOfVertice(destino);
 
-        if (orig != -1 && dest != -1)
-        {
-            matriz[dest][orig] = peso;
+        if (orig != -1 && dest != -1){
+            matriz[orig][dest] = valor;
         }
     }
 
@@ -111,10 +119,14 @@ public class GrafoMatriz {
     public String getVertice(int indice) {
         return vertices[indice];
     }
+
+    public  void imprimeDijkstra(int indice){
+        dijkstra(matriz,indice);
+    }
     
     private void dijkstra(int[][] grafo, int src) {
         int V = vertices.length;
-        int[] dist = new int[V];     
+        int[] dist = new int[V];
         // dist[i] guarda la distancia mas corta desde src hasta el vertice i
 
         boolean[] verticeYaProcesado = new boolean[V]; 
@@ -171,6 +183,62 @@ public class GrafoMatriz {
         for (int i = 0; i < vertices.length; i++)
            System.out.println(i + " \t\t " + dist[i]);
     }
-    
-    
+
+    private int[][] warshall_floyd(){
+        int cn = cantidadVertices;
+        int path[][] = new int[100][100];
+
+        for (int i = 0; i < cn; i++) {
+            for (int j = 0; j < cn; j++) {
+                if (matriz[i][j] > 0)//peso
+                    path[i][j] = matriz[i][j];
+                else if (i==j)//diagonal
+                    path[i][j] = 0;
+                else // no hay -> infinito
+                    path[i][j] = 9999;
+                //MAX_VALUE;
+            }
+        }
+        for(int k = 0; k < cn; k++)
+            for(int i = 0; i < cn; i++)
+                for(int j = 0; j < cn; j++){
+                    int dt = path[i][k] + path[k][j];
+                    if(path[i][j] > dt)
+                    {
+                        path[i][j] = dt;
+                    }
+                }
+        return path;
+    }
+
+    public ArrayList<String> profundidad(int verticeActual, String buscado, ArrayList<String> caminoRecorrido){
+        ArrayList<String> resultado = new ArrayList<>();
+        visitados[verticeActual] = true;
+        for(int i = 0; i < cantidadVertices; i++){
+            if(matriz[verticeActual][i] != 0 && !visitados[i]){
+                if(Objects.equals(buscado, vertices[i])){
+                    caminoRecorrido.add(vertices[verticeActual]);
+                    caminoRecorrido.add(buscado);
+                    resultado.add("1");
+                    resultado.add("lel");
+                    resultado.add("correcaminos");
+                    break;
+                }
+                else{
+                    caminoRecorrido.add(vertices[verticeActual]);
+                    resultado = profundidad( i , buscado , caminoRecorrido);
+                    if(resultado.size() == 3){
+                        break;
+                    }
+                }
+            }
+        }
+        for(String i: caminoRecorrido){
+            System.out.print(i + " - ");
+        }
+        return caminoRecorrido;
+    }
+
+
+
 }

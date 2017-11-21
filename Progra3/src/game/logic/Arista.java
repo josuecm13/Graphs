@@ -27,4 +27,12 @@ public class Arista {
     public Nodo getDestino() {
         return destino;
     }
+
+    public int getPeso(){
+        return peso;
+    }
+
+    public int getFastWay(){
+        return fastWay;
+    }
 }
