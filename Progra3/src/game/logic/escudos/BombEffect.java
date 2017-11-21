@@ -7,13 +7,13 @@ import game.logic.ataque.Ataque;
 public class BombEffect extends IEscudo {
 
     public BombEffect(Nodo dueño){
-        this.dueño = dueño;
+        this.comprador = dueño;
     }
 
     @Override
-    void proteger(int daño, Ataque ataque) {
-        for(Arista a: dueño.aritas){
-            dueño.atacar(a);
+    public void proteger(int herida, Ataque ataque) {
+        for(Arista a: comprador.aritas){
+            comprador.atacar(a,ataque.promedio);
         }
     }
 }

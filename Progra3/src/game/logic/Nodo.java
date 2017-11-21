@@ -75,8 +75,12 @@ public class Nodo {
     }
 
 
-    public void atacar(Arista a){
-        a.disminuirVida(12);
+    public void atacar(Arista a, int promedio){
+        a.disminuirVida(10);
+        List<Nodo> recorrido = new ArrayList<>();
+        recorrido.add(this);
+        recorrido.add(a.getDestino());
+        mensajes.get(0).atacar(promedio,recorrido);
     }
 
 
@@ -93,6 +97,7 @@ public class Nodo {
         for(IEscudo escudo: escudos){
             escudo.proteger(herida,ataque);
         }
+        escudos = new ArrayList<>();
         if(salud == 0){
             Nodo padre = ataque.getOrigen();
             for(Nodo e: hijos){
@@ -106,7 +111,15 @@ public class Nodo {
         hijos.add(hijo);
     }
 
-    public List<Ataque> getMensajes() {
-        return mensajes;
+    public Ataque getMensaje(int i) {
+        return mensajes.get(i);
+    }
+
+    public double getSalud() {
+        return salud;
+    }
+
+    public void setSalud(double salud) {
+        this.salud = salud;
     }
 }

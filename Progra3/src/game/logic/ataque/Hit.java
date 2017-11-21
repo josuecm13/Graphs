@@ -15,20 +15,18 @@ public class Hit extends Ataque {
 
     @Override
     public void atacar(int promedioGrafo, List<Nodo> recorrido) {
-        Random random = new Random();
         int randint = random.nextInt(2)+3;
+        promedio = promedioGrafo;
         int herida = (int) (randint * (0.4* promedioGrafo));
-        List<Arista> aristas = new ArrayList<>();
-        int i;
-        for(i = 0; i < recorrido.size() - 1; i++){
-            Nodo a = recorrido.get(i);
-            aristas.add(a.buscarArista(recorrido.get(i+1)));
-        }
-        for(Arista a: aristas){
-            herida -= a.getPeso();
-            a.disminuirVida(10);
-        }
-        recorrido.get(i).recibirAtaque(this,herida);
+        atacar(recorrido,herida,DEFAULT);
     }
 
+
+    @Override
+    public void contraatacar(int promedioGrafo, List<Nodo> recorrido) {
+        int randint = random.nextInt(2)+3;
+        promedio = promedioGrafo;
+        int herida = (int) (randint * (0.4* promedioGrafo));
+        atacar(recorrido,herida,CONTRAATAQUE);
+    }
 }

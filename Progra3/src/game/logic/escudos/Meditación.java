@@ -5,14 +5,13 @@ import game.logic.ataque.Ataque;
 
 public class Meditación extends IEscudo{
 
-
-
-    public Meditación(Nodo dueño) {
-        this.dueño = dueño;
+    
+    public Meditación(Nodo comprador) {
+        this.comprador = comprador;
     }
 
     @Override
-    void proteger(int daño, Ataque ataque) {
+    public void proteger(int herida, Ataque ataque) {
 
     }
 }

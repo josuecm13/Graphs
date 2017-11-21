@@ -1,18 +1,20 @@
 package game.logic.escudos;
 
-import game.logic.Arista;
 import game.logic.Nodo;
 import game.logic.ataque.Ataque;
 
+import java.util.List;
+
 public class Espejo extends IEscudo{
 
-    public Espejo(Nodo dueño){
-        this.dueño = dueño;
+    public Espejo(Nodo comprador){
+        this.comprador = comprador;
     }
 
 
     @Override
-    void proteger(int daño, Ataque ataque) {
-
+    public void proteger(int herida, Ataque ataque) {
+        comprador.setSalud(comprador.getSalud() + herida);
+        comprador.getMensaje(0).contraatacar(ataque.promedio,ataque.recorrido);
     }
 }

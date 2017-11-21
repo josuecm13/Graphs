@@ -5,8 +5,8 @@ import game.logic.ataque.Ataque;
 
 public abstract class IEscudo {
 
-    Nodo dueño;
+    Nodo comprador;
 
-    public abstract void proteger(int daño, Ataque ataque);
+    public abstract void proteger(int herida, Ataque ataque);
 
 }
