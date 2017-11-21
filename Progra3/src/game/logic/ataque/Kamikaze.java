@@ -1,4 +1,10 @@
 package game.logic.ataque;
 
-public class Kamikaze {
+import game.logic.Nodo;
+
+public class Kamikaze extends Ataque{
+
+    public Kamikaze(Nodo origen) {
+        super(origen);
+    }
 }

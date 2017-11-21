@@ -1,4 +1,9 @@
 package game.logic.ataque;
 
-public class Prim {
+import game.logic.Nodo;
+
+public class Prim extends Ataque {
+    Prim(Nodo origen) {
+        super(origen);
+    }
 }

@@ -17,7 +17,11 @@ public class Ataque implements IAtaque {
     }
 
     @Override
-    public void atacar(int promedioGrafo) {
+    public void atacar(int promedioGrafo, List<Nodo> recorrido) {
         throw new NotImplementedException();
+    }
+
+    public Nodo getOrigen(){
+        return origen;
     }
 }

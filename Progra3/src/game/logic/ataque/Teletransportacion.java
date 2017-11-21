@@ -1,4 +1,9 @@
 package game.logic.ataque;
 
-public class Teletransportacion {
+import game.logic.Nodo;
+
+public class Teletransportacion extends Ataque {
+    Teletransportacion(Nodo origen) {
+        super(origen);
+    }
 }

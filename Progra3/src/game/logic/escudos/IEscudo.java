@@ -7,6 +7,6 @@ public abstract class IEscudo {
 
     Nodo dueño;
 
-    abstract void proteger(int daño, Ataque ataque);
+    public abstract void proteger(int daño, Ataque ataque);
 
 }

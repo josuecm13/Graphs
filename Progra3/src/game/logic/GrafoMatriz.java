@@ -233,9 +233,7 @@ public class GrafoMatriz {
                 }
             }
         }
-        for(String i: caminoRecorrido){
-            System.out.print(i + " - ");
-        }
+        limpiarVisitados();
         return caminoRecorrido;
     }
 

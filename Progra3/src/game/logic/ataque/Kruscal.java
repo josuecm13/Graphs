@@ -1,4 +1,9 @@
 package game.logic.ataque;
 
-public class Kruscal {
+import game.logic.Nodo;
+
+public class Kruscal extends Ataque {
+    Kruscal(Nodo origen) {
+        super(origen);
+    }
 }
