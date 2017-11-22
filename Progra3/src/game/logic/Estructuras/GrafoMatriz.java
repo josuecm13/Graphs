@@ -1,4 +1,4 @@
-package game.logic;
+package game.logic.Estructuras;
 
 import java.util.ArrayList;
 import java.util.Objects;

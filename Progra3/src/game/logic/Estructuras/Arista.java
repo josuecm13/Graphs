@@ -1,14 +1,16 @@
-package game.logic;
+package game.logic.Estructuras;
 
 public class Arista {
 
     private int peso;
     private Nodo destino;
     private int fastWay;
+    boolean activo;
 
     public Arista(int peso) {
         this.peso = peso;
         fastWay = (int) (peso + peso*0.60 + 12);
+        activo = true;
     }
 
     public Arista(int peso, int fastWay){
@@ -34,5 +36,13 @@ public class Arista {
 
     public int getFastWay(){
         return fastWay;
+    }
+
+    public void turnOff(){
+        activo = false;
+    }
+
+    public void turnOn(){
+        activo = true;
     }
 }

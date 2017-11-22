@@ -1,7 +1,7 @@
 package game.logic.ataque;
 
-import game.logic.Arista;
-import game.logic.Nodo;
+import game.logic.Estructuras.Arista;
+import game.logic.Estructuras.Nodo;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;

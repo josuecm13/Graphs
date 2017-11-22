@@ -1,8 +1,7 @@
-package game.logic;
+package game.logic.Estructuras;
 
 import game.logic.ataque.Ataque;
 import game.logic.ataque.FabricaAtaque;
-import game.logic.ataque.Hit;
 import game.logic.escudos.IEscudo;
 import java.util.ArrayList;
 import java.util.List;

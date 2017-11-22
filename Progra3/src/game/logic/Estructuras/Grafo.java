@@ -1,4 +1,5 @@
-package game.logic;
+package game.logic.Estructuras;
+
 
 import game.logic.exceptions.AlreadyInsertedException;
 
@@ -13,6 +14,8 @@ public class Grafo {
     List<Nodo> pila;
     List<String> usernames;
     Nodo jugador;
+    public static int KAMIKAZE = 64;
+    public static int DEFAULT = 0;
 
     public Grafo(){
         vertices = new ArrayList<>();
@@ -109,12 +112,78 @@ public class Grafo {
         return result.get(vertices.size() - 1) == buscarNodo(destino) ? result: null;
     }
 
-
-    public void dijkstra(String nodo){
-        matrices.imprimeDijkstra(usernames.indexOf(nodo));
+    public ArrayList<ArrayList<Nodo>> multishot(Nodo origen, String destino, int tipo){
+        ArrayList<ArrayList<Nodo>> lists = new ArrayList<>();
+        Nodo dest = buscarNodo(destino);
+        if(tipo == Grafo.KAMIKAZE){
+            kamikaze(origen,dest,lists,new ArrayList<>());
+        }else{
+            multishot(origen,dest,lists,new ArrayList<>());
+        }
+        return lists;
     }
 
+    private void multishot(Nodo origen, Nodo destino, ArrayList<ArrayList<Nodo>> lists,List<Nodo> recorrido){
+        origen.visitado = true;
+        recorrido.add(origen);
+        if(origen.equals(destino)){
+            lists.add((ArrayList<Nodo>) recorrido);
+            limpiarVisitados();
+        }
+        for (Arista a: origen.aritas) {
+            if(!a.getDestino().visitado && a.activo){
+                multishot(a.getDestino(),destino,lists,recorrido.subList(0,recorrido.size()));
+            }
+        }
+    }
 
+    private void kamikaze(Nodo origen, Nodo destino, ArrayList<ArrayList<Nodo>> lists, List<Nodo> recorrido){
+        origen.visitado = true;
+        recorrido.add(origen);
+        if(origen.equals(destino)){
+            lists.add((ArrayList<Nodo>) recorrido);
+            limpiarVisitados();
+        }
+        for (Arista a: origen.aritas) {
+            if(!a.getDestino().visitado){
+                kamikaze(a.getDestino(),destino,lists,recorrido.subList(0,recorrido.size()));
+            }
+        }
+    }
+
+    public ArrayList<Nodo> recorridoDijkstra(Nodo origen, String destino){
+        ArrayList<ArrayList<Nodo>> lists = new ArrayList<>();
+        Nodo dest = buscarNodo(destino);
+        kamikaze(origen,dest,lists,new ArrayList<>());
+        int camino = Integer.MAX_VALUE;
+        ArrayList<Nodo> result = new ArrayList<>();
+        for(ArrayList<Nodo> recorrido: lists){
+            int peso = calcula(recorrido);
+            if(peso < camino){
+                camino = peso;
+                result = recorrido;
+            }
+        }
+        return result;
+    }
+
+    private int calcula(List<Nodo> recorrido){
+        ArrayList<Arista> aristas = new ArrayList<>();
+        int result = 0;
+        for(int i = 0; i < recorrido.size() - 1; i++){
+            Nodo a = recorrido.get(i);
+            aristas.add(a.buscarArista(recorrido.get(i+1)));
+        }
+        for(Arista a: aristas){
+           result += a.getPeso();
+        }
+        return result;
+    }
+
+    public void
+    dijkstra(String nodo){
+        matrices.imprimeDijkstra(usernames.indexOf(nodo));
+    }
 
 
 

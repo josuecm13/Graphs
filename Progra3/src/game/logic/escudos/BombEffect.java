@@ -1,7 +1,7 @@
 package game.logic.escudos;
 
-import game.logic.Arista;
-import game.logic.Nodo;
+import game.logic.Estructuras.Arista;
+import game.logic.Estructuras.Nodo;
 import game.logic.ataque.Ataque;
 
 public class BombEffect extends IEscudo {

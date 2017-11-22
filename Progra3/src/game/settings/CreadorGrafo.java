@@ -2,7 +2,7 @@ package game.settings;
 
 import game.logic.exceptions.AlreadyInsertedException;
 import game.gui.Gui;
-import game.logic.Grafo;
+import game.logic.Estructuras.Grafo;
 
 public class CreadorGrafo {
 

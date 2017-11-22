@@ -1,6 +1,6 @@
 package game.logic.ataque;
 
-import game.logic.Nodo;
+import game.logic.Estructuras.Nodo;
 
 import java.util.List;
 

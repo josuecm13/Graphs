@@ -1,11 +1,8 @@
 package game.logic.ataque;
 
-import game.logic.Arista;
-import game.logic.Nodo;
+import game.logic.Estructuras.Nodo;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Hit extends Ataque {
 

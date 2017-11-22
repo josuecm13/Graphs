@@ -1,9 +1,7 @@
 package game.logic.escudos;
 
-import game.logic.Nodo;
+import game.logic.Estructuras.Nodo;
 import game.logic.ataque.Ataque;
-
-import java.util.List;
 
 public class Espejo extends IEscudo{
 

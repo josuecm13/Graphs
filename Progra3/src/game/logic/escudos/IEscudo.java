@@ -1,6 +1,6 @@
 package game.logic.escudos;
 
-import game.logic.Nodo;
+import game.logic.Estructuras.Nodo;
 import game.logic.ataque.Ataque;
 
 public abstract class IEscudo {
