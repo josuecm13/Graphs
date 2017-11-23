@@ -73,7 +73,6 @@ public class Nodo {
         }
     }
 
-
     public void atacar(Arista a, int promedio){
         a.disminuirVida(10);
         List<Nodo> recorrido = new ArrayList<>();
@@ -81,7 +80,6 @@ public class Nodo {
         recorrido.add(a.getDestino());
         mensajes.get(0).atacar(promedio,recorrido);
     }
-
 
     public Arista buscarArista(Nodo destino){
         for (Arista g: aritas) {
@@ -108,6 +106,10 @@ public class Nodo {
 
     private void agregarHijo(Nodo hijo){
         hijos.add(hijo);
+    }
+
+    public void regenerar(){
+        salud += salud*0.2;
     }
 
     public Ataque getMensaje(int i) {

@@ -16,6 +16,7 @@ public class Grafo {
     Nodo jugador;
     public static int KAMIKAZE = 64;
     public static int DEFAULT = 0;
+    private int recuperacionArista = 60;
 
     public Grafo(){
         vertices = new ArrayList<>();
