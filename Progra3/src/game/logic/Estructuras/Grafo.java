@@ -45,6 +45,7 @@ public class Grafo {
         }
         Arista AtoB = new Arista(peso,matrices,origen);
         AtoB.setDestino(destino);
+        AtoB.turnOn();
         origen.agregarArista(AtoB);
         origen.totalPeso += peso;
         matrices.agregarArista(or,dest,peso);
