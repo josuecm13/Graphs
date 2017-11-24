@@ -7,7 +7,9 @@ public class Arista {
     private Nodo destino;
     private int fastWay;
     boolean activo;
+    private Nodo origen;
     private RecuperadorArista recuperacion;
+    private GrafoMatriz matriz;
 
     Arista(int peso) {
         this.peso = peso;
@@ -17,6 +19,18 @@ public class Arista {
         recuperacion = new RecuperadorArista(this);
         Thread thread = new Thread(recuperacion);
         thread.run();
+    }
+
+    Arista(int peso, GrafoMatriz matriz, Nodo origen) {
+        this.peso = peso;
+        pesoOriginal = peso;
+        fastWay = (int) (peso + peso * 0.60 + 12);
+        turnOn();
+        recuperacion = new RecuperadorArista(this);
+        Thread thread = new Thread(recuperacion);
+        thread.run();
+        this.matriz = matriz;
+        this.origen = origen;
     }
 
     public Arista(int peso, int fastWay){
@@ -52,10 +66,12 @@ public class Arista {
 
     private void turnOff(){
         activo = false;
+        matriz.desactivarArista(origen.getId(),destino.getId());
     }
 
     private void turnOn(){
         activo = true;
+        matriz.activarArista(origen.getId(),destino.getId());
     }
 
     private void restaurarVida(){

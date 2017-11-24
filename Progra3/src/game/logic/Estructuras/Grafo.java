@@ -43,7 +43,7 @@ public class Grafo {
         if(origen.containsA(destino)){
             throw new AlreadyInsertedException();
         }
-        Arista AtoB = new Arista(peso);
+        Arista AtoB = new Arista(peso,matrices,origen);
         AtoB.setDestino(destino);
         origen.agregarArista(AtoB);
         origen.totalPeso += peso;

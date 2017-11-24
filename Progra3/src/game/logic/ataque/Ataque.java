@@ -35,6 +35,9 @@ public class Ataque implements IAtaque {
         int heridaOriginal = herida;
         List<Arista> aristas = new ArrayList<>();
         int i;
+        if (!origen.compraValida(herida)) {
+             return;
+        }
         switch (opcion){
             case FASTWAY:
                 for(i = 0; i < recorrido.size() - 1; i++){
@@ -77,7 +80,6 @@ public class Ataque implements IAtaque {
     public void contraatacar(int promedioGrafo, List<Nodo> recorrido){
         throw new NotImplementedException();
     }
-
 
     public void atacaMultiple(int promedioGrafo, List<List<Nodo>> recorrido){
         throw new NotImplementedException();

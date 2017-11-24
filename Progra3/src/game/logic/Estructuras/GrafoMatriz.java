@@ -67,13 +67,33 @@ public class GrafoMatriz {
     }
 
     // agregar arista
-    public void agregarArista(String origen, String destino, int valor)
+    void agregarArista(String origen, String destino, int valor)
     {
         int orig = indexOfVertice(origen);
         int dest = indexOfVertice(destino);
 
         if (orig != -1 && dest != -1){
             matriz[orig][dest] = valor;
+            matrizAdyacencia[orig][dest] = 1;
+        }
+    }
+
+    void desactivarArista(String origen, String destino){
+        int orig = indexOfVertice(origen);
+        int dest = indexOfVertice(destino);
+
+        if (orig != -1 && dest != -1){
+            matrizAdyacencia[orig][dest] = 0;
+        }
+    }
+
+
+    void activarArista(String origen, String destino){
+        int orig = indexOfVertice(origen);
+        int dest = indexOfVertice(destino);
+
+        if (orig != -1 && dest != -1){
+            matrizAdyacencia[orig][dest] = 1;
         }
     }
 
@@ -211,11 +231,11 @@ public class GrafoMatriz {
         return path;
     }
 
-    public ArrayList<String> profundidad(int verticeActual, String buscado, ArrayList<String> caminoRecorrido){
+    ArrayList<String> profundidad(int verticeActual, String buscado, ArrayList<String> caminoRecorrido){
         ArrayList<String> resultado = new ArrayList<>();
         visitados[verticeActual] = true;
         for(int i = 0; i < cantidadVertices; i++){
-            if(matriz[verticeActual][i] != 0 && !visitados[i]){
+            if(matrizAdyacencia[verticeActual][i] != 0 && !visitados[i]){
                 if(Objects.equals(buscado, vertices[i])){
                     caminoRecorrido.add(vertices[verticeActual]);
                     caminoRecorrido.add(buscado);

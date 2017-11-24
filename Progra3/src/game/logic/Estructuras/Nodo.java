@@ -11,7 +11,7 @@ public class Nodo {
 
     private final String id;
     private int dineroInicial;
-    private int dineroAcumulador;
+    private int dineroAcumulado;
     private double salud;
     private boolean turno;
     public int totalPeso;
@@ -33,6 +33,18 @@ public class Nodo {
         llenarMensajes();
     }
 
+    public Nodo(String id,int dineroInicial){
+        this.id = id;
+        salud = 100;
+        turno = false;
+        aritas = new ArrayList<>();
+        hijos = new ArrayList<>();
+        totalPeso = 0;
+        escudos = new ArrayList<>();
+        mensajes = new ArrayList<>();
+        llenarMensajes();
+        this.dineroInicial = this.dineroAcumulado = dineroInicial;
+    }
 
     private void llenarMensajes(){
         for (int i = 0; i < FabricaAtaque.CANTIDAD_DE_ATAQUES ; i++) {
@@ -99,7 +111,9 @@ public class Nodo {
             Nodo padre = ataque.getOrigen();
             for(Nodo e: hijos){
                padre.agregarHijo(e);
+               padre.vaciar(e);
             }
+            padre.vaciar(this);
             padre.agregarHijo(this);
         }
     }
@@ -108,8 +122,8 @@ public class Nodo {
         hijos.add(hijo);
     }
 
-    public void regenerar(){
-        salud += salud*0.2;
+    public void regenerar() {
+        salud += salud * 0.2;
     }
 
     public Ataque getMensaje(int i) {
@@ -118,6 +132,17 @@ public class Nodo {
 
     public double getSalud() {
         return salud;
+    }
+
+    public boolean compraValida(int cant){
+        this.dineroAcumulado = dineroAcumulado - cant > 0
+                ? dineroAcumulado - cant : 0;
+        return dineroAcumulado - cant > 0;
+    }
+
+    private void vaciar(Nodo hijo){
+        this.dineroAcumulado += hijo.dineroAcumulado  ;
+        hijo.dineroAcumulado = 0;
     }
 
     public void setSalud(double salud) {
