@@ -1,4 +1,4 @@
-package gui;
+package game.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
