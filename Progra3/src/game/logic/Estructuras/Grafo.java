@@ -17,6 +17,7 @@ public class Grafo {
     public static int KAMIKAZE = 64;
     public static int DEFAULT = 0;
     private int recuperacionArista = 60;
+    private int[] configuraciones = {750,2,100000,60,2500};
 
     public Grafo(){
         vertices = new ArrayList<>();
@@ -168,6 +169,22 @@ public class Grafo {
         }
         return result;
     }
+
+    public void setConfiguraciones(int activarArista,int meditacion,int plataInicial,
+                                   int segundosAristas,int valorAristas){
+        configuraciones[0] = activarArista;
+        configuraciones[1] = meditacion;
+        configuraciones[2] = plataInicial;
+        configuraciones[3] = segundosAristas;
+        configuraciones[5] = valorAristas;
+        for (Nodo i: vertices) {
+            i.setSegundosArista(segundosAristas);
+            i.setMeditacion(meditacion);
+        }
+
+    }
+
+
 
     private int calcula(List<Nodo> recorrido){
         ArrayList<Arista> aristas = new ArrayList<>();

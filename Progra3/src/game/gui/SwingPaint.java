@@ -29,24 +29,32 @@ public class SwingPaint {
     Circulo drawCirculo;
     public Grafo grafo;
     JTextField _peso;
+    ArrayList<NodoGUI> nodos;
+    JPanel controls;
+    GameController game;
 
   ActionListener actionListener = new ActionListener() {
  
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == clearBtn) {
-                //this.addMouseListener();
+                drawArea.removeMouseListener(drawArea);
+                _peso.setEnabled(false);
+                configBtn.setEnabled(true);
+                tiendaBtn.setEnabled(true);
+                drawArea.addMouseListener(game);
             } else if (e.getSource() == configBtn) {
+                new Configuraciones(grafo).setVisible(true);
                 grafo.imprimir();
             } else if (e.getSource() == tiendaBtn) {
-                //new Tienda.show();
+                new Tienda().setVisible(true);
             }
         }
     };
 
- 
   public void show(ArrayList<NodoGUI> g, Grafo graf) {
     // create main frame
     grafo = graf;
+    nodos = g;
     JFrame frame = new JFrame("Aristas");
     frame.setResizable(false);
     frame.addWindowListener(new WindowAdapter() {
@@ -72,14 +80,15 @@ public class SwingPaint {
     
     // create draw area
     drawArea = new DrawArea(g, grafo, _peso);
-  
+    game = new GameController(g, grafo, drawArea.getImg(), drawArea.getGraphic());
+    
     // add to content pane
     content.add(drawArea, BorderLayout.CENTER);
  
     // create controls to apply colors and call clear feature
-    JPanel controls = new JPanel();
+    controls = new JPanel();
  
-    clearBtn = new JButton("Borrar");
+    clearBtn = new JButton("Jugar");
     clearBtn.addActionListener(actionListener);
     configBtn = new JButton("Configuraciones");
     configBtn.addActionListener(actionListener);
@@ -89,10 +98,11 @@ public class SwingPaint {
     
     // add to panel
     controls.add(_peso);
+    controls.add(clearBtn);
     controls.add(tiendaBtn);
     controls.add(configBtn);
-    controls.add(clearBtn);
- 
+    configBtn.setEnabled(false);
+    tiendaBtn.setEnabled(false);
     // add to content pane
     content.add(controls, BorderLayout.NORTH);
  
@@ -102,7 +112,7 @@ public class SwingPaint {
     // show the swing paint result
     frame.setVisible(true);
  
-  }
+    }
     
     
 }

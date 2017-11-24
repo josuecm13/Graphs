@@ -20,6 +20,7 @@ public class Nodo {
     public List<Arista> aritas;
     private List<Nodo> hijos;
     private List<Ataque> mensajes;
+    private int minMeditacion;
 
     public Nodo(String id){
         this.id = id;
@@ -128,6 +129,20 @@ public class Nodo {
 
     public Ataque getMensaje(int i) {
         return mensajes.get(i);
+    }
+
+    void setSegundosArista(int segundosAristas){
+        for(Arista i : aritas){
+            i.setSegundosRecuperacion(segundosAristas);
+        }
+    }
+
+    public void setMinMeditacion(int minMeditacion) {
+        this.minMeditacion = minMeditacion;
+    }
+
+    public void setMeditacion(int min){
+        minMeditacion = min;
     }
 
     public double getSalud() {
