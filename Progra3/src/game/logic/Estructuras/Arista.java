@@ -75,6 +75,10 @@ public class Arista {
         }catch (Exception ignored){}
     }
 
+    void setSegundosRecuperacion(int i){
+        recuperacion.setSegundo(i);
+    }
+
     private void restaurarVida(){
         peso = pesoOriginal;
     }

@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package game.gui;
+
+import game.logic.Estructuras.Grafo;
 
 /**
  *
@@ -11,10 +13,17 @@ package gui;
  */
 public class Configuraciones extends javax.swing.JFrame {
 
+    Grafo grafo;
+
     /**
      * Creates new form Configuraciones
      */
     public Configuraciones() {
+        initComponents();
+    }
+
+    public Configuraciones(Grafo grafo){
+        this.grafo = grafo;
         initComponents();
     }
 
@@ -120,16 +129,18 @@ public class Configuraciones extends javax.swing.JFrame {
                         .addComponent(btnOK)
                         .addGap(29, 29, 29))))
         );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnOKActionPerformed
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {
+        grafo.setConfiguraciones(Integer.parseInt(activarArista.getValue().toString()),
+                Integer.parseInt(meditacion.getValue().toString()),
+                Integer.parseInt(plataInicial.getValue().toString()),
+                Integer.parseInt(segundosAristas.getValue().toString()),
+                Integer.parseInt(valorAristas.getValue().toString()));
+    }
 
-    
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+
     private javax.swing.JSpinner activarArista;
     private javax.swing.JButton btnOK;
     private javax.swing.JLabel jLabel1;
@@ -141,5 +152,4 @@ public class Configuraciones extends javax.swing.JFrame {
     private javax.swing.JSpinner plataInicial;
     private javax.swing.JSpinner segundosAristas;
     private javax.swing.JSpinner valorAristas;
-    // End of variables declaration//GEN-END:variables
 }

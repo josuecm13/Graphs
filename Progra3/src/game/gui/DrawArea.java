@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package game.gui;
 
 import game.logic.Estructuras.Grafo;
 import game.logic.exceptions.AlreadyInsertedException;
@@ -18,8 +18,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
-import javax.swing.JComponent;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 /**
  *
@@ -109,6 +108,7 @@ public class DrawArea extends JComponent implements MouseListener {
                         }
                         grafo.insertarArista(temp.getNombre(), dest.getNombre(), Integer.parseInt(valor));
                     } catch (AlreadyInsertedException u) {
+                        JOptionPane.showMessageDialog(null,"Aristas","Arista previamente insertado",JOptionPane.ERROR_MESSAGE);
                         System.out.println("Arista previamente insertado");
                         return;
                     }

@@ -1,4 +1,4 @@
-package gui;
+package game.gui;
 
 import game.logic.Estructuras.Grafo;
 import java.awt.BorderLayout;
@@ -37,15 +37,13 @@ public class SwingPaint {
  
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == clearBtn) {
-                
                 drawArea.removeMouseListener(drawArea);
                 _peso.setEnabled(false);
                 configBtn.setEnabled(true);
                 tiendaBtn.setEnabled(true);
                 drawArea.addMouseListener(game);
-                
             } else if (e.getSource() == configBtn) {
-                new Configuraciones().setVisible(true);
+                new Configuraciones(grafo).setVisible(true);
                 grafo.imprimir();
             } else if (e.getSource() == tiendaBtn) {
                 new Tienda().setVisible(true);
