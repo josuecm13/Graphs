@@ -6,6 +6,7 @@
 package gui;
 
 import game.logic.Estructuras.Grafo;
+import game.logic.exceptions.AlreadyInsertedException;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -41,6 +42,12 @@ public class Circulo extends JComponent {
             oldX = e.getX();
             oldY = e.getY();
             if (g2 != null &&  !name.getText().equals("")) {
+                try {
+                    grafo.insertarVertice(name.getText());
+                } catch (AlreadyInsertedException h) {
+                    System.out.println("Nodo previamente insertado");
+                    return;
+                }
                 Ellipse2D circle = new Ellipse2D.Double(oldX, oldY, 100, 100);
                 NodoGUI nodo = new NodoGUI(circle, name.getText(), grafo);
                 nodos.add(nodo);

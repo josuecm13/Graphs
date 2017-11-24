@@ -7,46 +7,32 @@ package gui;
 
 import game.logic.Estructuras.Grafo;
 import game.logic.exceptions.AlreadyInsertedException;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import javax.swing.JComponent;
-import javax.swing.JTextField;
 
 /**
  *
  * @author gaboq
  */
-public class DrawArea extends JComponent implements MouseListener {
-
+public class GameController extends JComponent implements MouseListener{
+    
     private Image image;
     private Graphics2D g2;
     private int currentX, currentY, oldX, oldY;
     ArrayList<NodoGUI> nodos;
     Grafo grafo;
-    JTextField peso;
-
-    public DrawArea(ArrayList<NodoGUI> nodes, Grafo grf, JTextField _peso) {
-        grafo = grf;
-        nodos = nodes;
-        peso = _peso;
-        addMouseListener(this);
-    }
-
-    public Image getImg() {
-        return image;
-    }
     
-    public Graphics2D getGraphic() {
-        return g2;
+    public GameController(ArrayList<NodoGUI> g, Grafo graf, Image img, Graphics2D gra) {
+        nodos = g;
+        grafo  = graf;
+        image = img;
+        g2 = gra;
     }
     
     protected void paintComponent(Graphics g) {
@@ -54,8 +40,6 @@ public class DrawArea extends JComponent implements MouseListener {
             image = createImage(getSize().width, getSize().height);
             g2 = (Graphics2D) image.getGraphics();
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-            clear();
         }
 
         for (NodoGUI n : nodos) {
@@ -65,15 +49,7 @@ public class DrawArea extends JComponent implements MouseListener {
 
         g.drawImage(image, 0, 0, null);
     }
-   
-    // now we create exposed methods
-    public void clear() {
-      g2.setPaint(Color.white);
-      // draw white on entire draw area to clear
-      g2.fillRect(0, 0, getSize().width, getSize().height);
-      g2.setPaint(Color.black);
-      repaint();
-    }
+    
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -90,8 +66,6 @@ public class DrawArea extends JComponent implements MouseListener {
         NodoGUI temp = origen();
         if (temp != null &&  temp.contains(oldX, oldY)  ) {
             System.out.println(oldX + " " + oldY);
-            currentX = e.getX();
-            currentY = e.getY();
             NodoGUI dest = null;
             for (NodoGUI n : nodos) {
                 if (n.contains(e.getX(), e.getY())) {
@@ -99,28 +73,9 @@ public class DrawArea extends JComponent implements MouseListener {
                 }
             }
             if (dest != null && dest != temp) {
-                System.out.println(e.getX() + " " + e.getY());
-                if (g2 != null) {
-                    
-                    String valor = peso.getText();
-                    try {
-                        if ("".equals(valor)) {
-                            return;
-                        }
-                        grafo.insertarArista(temp.getNombre(), dest.getNombre(), Integer.parseInt(valor));
-                    } catch (AlreadyInsertedException u) {
-                        System.out.println("Arista previamente insertado");
-                        return;
-                    }
-                    
-                    // draw line if g2 context not null
-                    g2.drawLine(oldX, oldY, e.getX(), e.getY());
-                    // refresh draw area to repaint
-                    repaint();
-                    // store current coords x,y as olds x,y
-                    oldX = currentX;
-                    oldY = currentY;
-                }
+
+                grafo.imprimir();
+
             }
         }
     }
@@ -142,6 +97,4 @@ public class DrawArea extends JComponent implements MouseListener {
         return null;
     }
     
-
-
 }

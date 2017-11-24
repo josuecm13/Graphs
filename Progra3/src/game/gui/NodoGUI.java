@@ -30,13 +30,7 @@ public class NodoGUI {
         _x = (int) circle.getX();
         _y = (int) circle.getY();
         nombre = nom;
-        
-        try {
-            grafo.insertarVertice(nom);
-            _nodo = grafo.buscarNodo(nom);
-        } catch (AlreadyInsertedException e) {
-            System.out.println("Nodo previamente insertado");
-        }
+        _nodo = grafo.buscarNodo(nom);
     }
     
     public String getNombre() {
