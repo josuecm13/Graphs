@@ -1,4 +1,4 @@
-package gui;
+package game.gui;
 
 import game.logic.Estructuras.Grafo;
 import java.awt.BorderLayout;
@@ -34,7 +34,7 @@ public class SwingPaint {
  
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == clearBtn) {
-                this.addMouseListener();
+                //this.addMouseListener();
             } else if (e.getSource() == configBtn) {
                 grafo.imprimir();
             } else if (e.getSource() == tiendaBtn) {
