@@ -31,10 +31,12 @@ public class Grafo {
         if(usernames.indexOf(id) != -1){
             throw new AlreadyInsertedException();
         }
-        Nodo nodo = new Nodo(id);
+        Nodo nodo = new Nodo(id,configuraciones[2]);
         vertices.add(nodo);
         usernames.add(id);
         matrices.agregarVertice(id);
+        nodo.setSegundosArista(configuraciones[3]);
+        nodo.setMeditacion(configuraciones[1]);
     }
 
     public void insertarArista(String or, String dest, int peso) throws AlreadyInsertedException{

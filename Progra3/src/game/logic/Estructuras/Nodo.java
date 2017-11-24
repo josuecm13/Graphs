@@ -137,10 +137,6 @@ public class Nodo {
         }
     }
 
-    public void setMinMeditacion(int minMeditacion) {
-        this.minMeditacion = minMeditacion;
-    }
-
     public void setMeditacion(int min){
         minMeditacion = min;
     }
