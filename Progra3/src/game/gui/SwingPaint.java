@@ -1,7 +1,10 @@
-package game.gui;
+package gui;
 
+import game.logic.Estructuras.Grafo;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.Graphics;
 import static java.awt.SystemColor.window;
 import java.awt.event.ActionEvent;
@@ -13,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -20,38 +24,29 @@ import javax.swing.JPanel;
  */
 public class SwingPaint {
     
-  JButton clearBtn, blackBtn, blueBtn, greenBtn, redBtn, magentaBtn;
-  DrawArea drawArea;
-  Circulo drawCirculo;
-  
+    JButton clearBtn, configBtn, tiendaBtn;
+    DrawArea drawArea;
+    Circulo drawCirculo;
+    public Grafo grafo;
+    JTextField _peso;
+
   ActionListener actionListener = new ActionListener() {
  
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == clearBtn) {
-                drawArea.clear();
-            } else if (e.getSource() == blackBtn) {
-                drawArea.black();
-            } else if (e.getSource() == blueBtn) {
-                drawArea.blue();
-            } else if (e.getSource() == greenBtn) {
-                drawArea.green();
-            } else if (e.getSource() == redBtn) {
-                drawArea.red();
+                this.addMouseListener();
+            } else if (e.getSource() == configBtn) {
+                grafo.imprimir();
+            } else if (e.getSource() == tiendaBtn) {
+                //new Tienda.show();
             }
         }
     };
-  
-  ActionListener circleListener = new ActionListener() {
+
  
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == magentaBtn) {
-          drawArea.magenta();
-        }
-    }
-  };
- 
-  public void show(ArrayList<NodoGUI> g) {
+  public void show(ArrayList<NodoGUI> g, Grafo graf) {
     // create main frame
+    grafo = graf;
     JFrame frame = new JFrame("Aristas");
     frame.setResizable(false);
     frame.addWindowListener(new WindowAdapter() {
@@ -67,8 +62,16 @@ public class SwingPaint {
     Container content = frame.getContentPane();
     // set layout on content pane
     content.setLayout(new BorderLayout());
+    
+    
+    _peso = new JTextField(15);
+    _peso.setBackground(Color.decode("#CC0000"));
+    Font font = new Font("Courier", Font.BOLD,25);
+    _peso.setFont(font);
+    _peso.setForeground (Color.white);
+    
     // create draw area
-    drawArea = new DrawArea(g);
+    drawArea = new DrawArea(g, grafo, _peso);
   
     // add to content pane
     content.add(drawArea, BorderLayout.CENTER);
@@ -76,25 +79,18 @@ public class SwingPaint {
     // create controls to apply colors and call clear feature
     JPanel controls = new JPanel();
  
-    clearBtn = new JButton("Clear");
+    clearBtn = new JButton("Borrar");
     clearBtn.addActionListener(actionListener);
-    blackBtn = new JButton("Black");
-    blackBtn.addActionListener(actionListener);
-    blueBtn = new JButton("Blue");
-    blueBtn.addActionListener(actionListener);
-    greenBtn = new JButton("Green");
-    greenBtn.addActionListener(actionListener);
-    redBtn = new JButton("Red");
-    redBtn.addActionListener(actionListener);
-    magentaBtn = new JButton("Circle");
-    magentaBtn.addActionListener(circleListener);
- 
+    configBtn = new JButton("Configuraciones");
+    configBtn.addActionListener(actionListener);
+    tiendaBtn = new JButton("Tienda");
+    tiendaBtn.addActionListener(actionListener);
+    
+    
     // add to panel
-    controls.add(greenBtn);
-    controls.add(blueBtn);
-    controls.add(blackBtn);
-    controls.add(redBtn);
-    controls.add(magentaBtn);
+    controls.add(_peso);
+    controls.add(tiendaBtn);
+    controls.add(configBtn);
     controls.add(clearBtn);
  
     // add to content pane

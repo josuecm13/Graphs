@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game.gui;
+package gui;
 
+import game.logic.Estructuras.Grafo;
+import game.logic.Estructuras.Nodo;
+import game.logic.exceptions.AlreadyInsertedException;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -17,21 +20,34 @@ import javax.swing.ImageIcon;
  */
 public class NodoGUI {
     
-    //private Nodo _nodo;
-    private int _x, _y;
+    private Nodo _nodo;
+    public int _x, _y;
     private Ellipse2D circle;
+    private String nombre;
     
-    public NodoGUI(Ellipse2D img) {
+    public NodoGUI(Ellipse2D img, String nom, Grafo grafo) {
         circle = img;
         _x = (int) circle.getX();
         _y = (int) circle.getY();
+        nombre = nom;
+        
+        try {
+            grafo.insertarVertice(nom);
+            _nodo = grafo.buscarNodo(nom);
+        } catch (AlreadyInsertedException e) {
+            System.out.println("Nodo previamente insertado");
+        }
     }
     
-    /*
+    public String getNombre() {
+        
+        return nombre;
+    }
+    
     public Nodo getNodo() {
+        
         return _nodo;
     }
-    */
     
     public boolean contains(int x, int y) {
         return (x > _x && x < (_x + getWidth()) &&

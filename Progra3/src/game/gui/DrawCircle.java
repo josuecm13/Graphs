@@ -3,15 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game.gui;
+package gui;
 
+import game.logic.Estructuras.Grafo;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -20,10 +24,12 @@ import javax.swing.JPanel;
 public class DrawCircle {
     
     protected JFrame instance;
+    public Grafo grafo = new Grafo();
     
     JButton clearBtn, nextBtn, blueBtn, greenBtn, redBtn, magentaBtn;
     Circulo drawCirculo;
-
+    JTextField nameField;
+    
     ActionListener actionListener = new ActionListener() {
 
           @Override
@@ -31,17 +37,9 @@ public class DrawCircle {
               if (e.getSource() == clearBtn) {
                   drawCirculo.clear();
               } else if (e.getSource() == nextBtn) {
-                  new SwingPaint().show(drawCirculo.getGUI());
+                  new SwingPaint().show(drawCirculo.getGUI(), grafo);
                   instance.dispose();
               } 
-              /*else if (e.getSource() == blueBtn) {
-                  drawCirculo.blue();
-              } else if (e.getSource() == greenBtn) {
-                  drawCirculo.green();
-              } else if (e.getSource() == redBtn) {
-                  drawCirculo.red();
-              }
-            */
           }
       };
  
@@ -59,8 +57,15 @@ public class DrawCircle {
     // set layout on content pane
     content.setLayout(new BorderLayout());
     // create draw area
-    drawCirculo = new Circulo();
-  
+    
+    nameField = new JTextField(15);
+    nameField.setBackground(Color.decode("#CC0000"));
+    Font font = new Font("Courier", Font.BOLD,25);
+    nameField.setFont(font);
+    nameField.setForeground (Color.white);
+    
+    drawCirculo = new Circulo(grafo, nameField);
+ 
     // add to content pane
     content.add(drawCirculo, BorderLayout.CENTER);
  
@@ -72,24 +77,8 @@ public class DrawCircle {
     
     nextBtn = new JButton("Siguente");
     nextBtn.addActionListener(actionListener);
-    /*
-    blueBtn = new JButton("Blue");
-    blueBtn.addActionListener(actionListener);
-    greenBtn = new JButton("Green");
-    greenBtn.addActionListener(actionListener);
-    redBtn = new JButton("Red");
-    redBtn.addActionListener(actionListener);
-    magentaBtn = new JButton("Circle");
-    magentaBtn.addActionListener(actionListener);
     
- 
-    // add to panel
-    controls.add(greenBtn);
-    controls.add(blueBtn);
-    
-    controls.add(redBtn);
-    controls.add(magentaBtn);
-*/
+    controls.add(nameField);
     controls.add(nextBtn);
     controls.add(clearBtn);
  

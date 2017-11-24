@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game.gui;
+package gui;
 
+import game.logic.Estructuras.Grafo;
+import game.logic.exceptions.AlreadyInsertedException;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -17,26 +19,26 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import javax.swing.JComponent;
+import javax.swing.JTextField;
 
 /**
  *
  * @author gaboq
  */
 public class DrawArea extends JComponent implements MouseListener {
-    
-     
-    // Image in which we're going to draw
+
     private Image image;
-    // Graphics2D object ==> used to draw on
     private Graphics2D g2;
-    // Mouse coordinates
     private int currentX, currentY, oldX, oldY;
     ArrayList<NodoGUI> nodos;
-    private int X, Y; 
+    private int X, Y;
+    Grafo grafo;
+    JTextField peso;
 
-    public DrawArea(ArrayList<NodoGUI> nodes) {
-        
+    public DrawArea(ArrayList<NodoGUI> nodes, Grafo grf, JTextField _peso) {
+        grafo = grf;
         nodos = nodes;
+        peso = _peso;
         addMouseListener(this);
     }
 
@@ -51,11 +53,12 @@ public class DrawArea extends JComponent implements MouseListener {
 
         for (NodoGUI n : nodos) {
             g2.fill(n.getCircle());
+            g2.drawString(n.getNombre(), n._x, n._y);
         }
 
         g.drawImage(image, 0, 0, null);
     }
-
+   
     // now we create exposed methods
     public void clear() {
       g2.setPaint(Color.white);
@@ -63,27 +66,7 @@ public class DrawArea extends JComponent implements MouseListener {
       g2.fillRect(0, 0, getSize().width, getSize().height);
       g2.setPaint(Color.black);
       repaint();
-    }
 
-    public void red() {
-      // apply red color on g2 context
-      g2.setPaint(Color.red);
-    }
-
-    public void black() {
-      g2.setPaint(Color.black);
-    }
-
-    public void magenta() {
-      g2.setPaint(Color.magenta);
-    }
-
-    public void green() {
-      g2.setPaint(Color.green);
-    }
-
-    public void blue() {
-      g2.setPaint(Color.blue);
     }
 
     @Override
@@ -112,6 +95,18 @@ public class DrawArea extends JComponent implements MouseListener {
             if (dest != null && dest != temp) {
                 System.out.println(e.getX() + " " + e.getY());
                 if (g2 != null) {
+                    
+                    String valor = peso.getText();
+                    try {
+                        if ("".equals(valor)) {
+                            return;
+                        }
+                        grafo.insertarArista(temp.getNombre(), dest.getNombre(), Integer.parseInt(valor));
+                    } catch (AlreadyInsertedException u) {
+                        System.out.println("Arista previamente insertado");
+                        return;
+                    }
+                    
                     // draw line if g2 context not null
                     g2.drawLine(oldX, oldY, e.getX(), e.getY());
                     // refresh draw area to repaint
@@ -132,16 +127,6 @@ public class DrawArea extends JComponent implements MouseListener {
     public void mouseExited(MouseEvent e) {
     }
 
-    
-    private boolean contiene() {
-        for (NodoGUI n : nodos) {
-            if (n.contains(oldX, oldY)) {
-                
-                return true;
-            }
-        }
-        return false;
-    }
     
     private NodoGUI origen() {
         for (NodoGUI n : nodos) {
