@@ -26,15 +26,12 @@ public class Grafo {
     }
 
 
-    public void insertarVertice(String id) throws AlreadyInsertedException{
-        if(usernames.indexOf(id) != -1){
-            throw new AlreadyInsertedException();
-        }
-        Nodo nodo = new Nodo(id);
-        vertices.add(nodo);
-        usernames.add(id);
-        matrices.agregarVertice(id);
+    public ArrayList<Nodo> getVertices() {
+    	return (ArrayList<Nodo>) vertices;
     }
+
+
+    public void insertarVertice(String id) throws AlreadyInsertedException{if(usernames.indexOf(id) != -1){throw new AlreadyInsertedException();}Nodo nodo = new Nodo(id);vertices.add(nodo);usernames.add(id);matrices.agregarVertice(id);}
 
     public void insertarArista(String or, String dest, int peso) throws AlreadyInsertedException{
         Nodo origen = buscarNodo(or);
